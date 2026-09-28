@@ -407,6 +407,11 @@ bool process_record_unicode_typing(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 
+    // Mode-control keys above must remain reachable while typing is disabled.
+    if (typing_mode == UCTM_NO_MODE) {
+        return true;
+    }
+
 #ifdef NO_ACTION_ONESHOT
     if ((get_mods() & ~MOD_MASK_SHIFT) != 0)
 #else  // NO_ACTION_ONESHOT
